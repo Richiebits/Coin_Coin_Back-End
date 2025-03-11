@@ -40,6 +40,8 @@ class clientController {
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=utf-8");
 
+        print_r(file_get_contents('php://input'));
+
         $data = json_decode(file_get_contents('php://input'), true);
 
         try {
@@ -53,6 +55,38 @@ class clientController {
             ]);
             echo json_encode(['success' => true, 'message' => 'Client créé avec succès']);
         } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(array("error"=> $e->getMessage()));
+        }
+    }
+    public static function updateClient($email) {
+        global $pdo;
+
+        header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json; charset=utf-8");
+
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        echo json_encode($data);
+        
+        try {
+            $stmt = $pdo->prepare("UPDATE Client SET 
+                nom = :nom, 
+                prenom = :prenom, 
+                tel = :tel, 
+                mot_de_passe = :mot_de_passe
+                WHERE email = :email");
+
+            $stmt->execute([
+                ':nom' => $data['nom'],
+                ':prenom' => $data['prenom'],
+                ':tel' => $data['tel'],
+                ':mot_de_passe' => $data['mot_de_passe'],
+                ':email' => $email
+            ]);
+            echo json_encode(['success' => true, 'message' => 'Client modifié avec succès']);
+
+        } catch(PDOException $e) {
             http_response_code(500);
             echo json_encode(array("error"=> $e->getMessage()));
         }

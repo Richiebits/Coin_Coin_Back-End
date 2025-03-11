@@ -15,6 +15,9 @@ get('/api/client', function() {
 post('/api/client', function() {
     clientController::addClient();
 });
+put('/api/client/$email', function($email) {
+    clientController::updateClient($email);
+});
 // //---------------------------------------------------------------------------
 // get('/api/activities/filter', function() {
 //     activityController::getFilteredActivities();
