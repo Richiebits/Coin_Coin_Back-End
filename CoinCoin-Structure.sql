@@ -1,91 +1,84 @@
 -- SCRIPT DE CREATION DU MODELE PHYSIQUE DE DONNEES
 -- AUTEUR : [VOTRE NOM]
 
-DROP TABLE Historique CASCADE CONSTRAINTS;
-DROP TABLE Revenu CASCADE CONSTRAINTS;
-DROP TABLE Depense CASCADE CONSTRAINTS;
-DROP TABLE Budget CASCADE CONSTRAINTS;
-DROP TABLE Projet CASCADE CONSTRAINTS;
-DROP TABLE Client CASCADE CONSTRAINTS;
-
-----------------------------------------------
----- Création de la table Client
-----------------------------------------------
+-- --------------------------------------------
+-- -- Création de la table Client
+-- --------------------------------------------
 CREATE TABLE Client (
-    email         VARCHAR2(255)   UNIQUE NOT NULL,
-    nom           VARCHAR2(255)   NOT NULL,
-    prenom        VARCHAR2(255)   NOT NULL,
-    tel           VARCHAR2(255)   NULL,
-    mot_de_passe  VARCHAR2(255)   NOT NULL,
+    email         VARCHAR(255)   UNIQUE NOT NULL,
+    nom           VARCHAR(255)   NOT NULL,
+    prenom        VARCHAR(255)   NOT NULL,
+    tel           VARCHAR(255)   NULL,
+    mot_de_passe  VARCHAR(255)   NOT NULL,
     
     CONSTRAINT PK_Client PRIMARY KEY (email)
 );
 
-----------------------------------------------
----- Création de la table Projet
-----------------------------------------------
+-- --------------------------------------------
+-- -- Création de la table Projet
+-- --------------------------------------------
 CREATE TABLE Projet (
-    id          NUMBER(10)    NOT NULL,
-    nom         VARCHAR2(255)   NOT NULL,
-    but_epargne NUMBER(10)    NOT NULL,
-    Clientid    NUMBER(10)    NOT NULL,
+    id          INT(10)         NOT NULL AUTO_INCREMENT,
+    nom         VARCHAR(255)    NOT NULL,
+    but_epargne INT(10)         NOT NULL,
+    Clientid    VARCHAR(255)    NOT NULL,
     
     CONSTRAINT PK_Projet PRIMARY KEY (id),
-    CONSTRAINT FK_Projet_Client FOREIGN KEY (Clientid) REFERENCES Client(id) ON DELETE CASCADE
+    CONSTRAINT FK_Projet_Client FOREIGN KEY (Clientid) REFERENCES Client(email) ON DELETE CASCADE
 );
 
-----------------------------------------------
----- Création de la table Budget
-----------------------------------------------
+-- --------------------------------------------
+-- -- Création de la table Budget
+-- --------------------------------------------
 CREATE TABLE Budget (
-    id              NUMBER(10)    NOT NULL,
-    nom             VARCHAR2(255)   NOT NULL,
-    depenses_total  NUMBER(10)    NOT NULL,
-    revenus_total   NUMBER(10)    NOT NULL,
+    id              INT(10)    NOT NULL AUTO_INCREMENT,
+    nom             VARCHAR(255)   NOT NULL,
+    depenses_total  INT(10)    NOT NULL,
+    revenus_total   INT(10)    NOT NULL,
     date_debut      DATE           NOT NULL,
     date_fin        DATE           NOT NULL,
-    Projetid        NUMBER(10)    NOT NULL,
+    Projetid        INT(10)    NOT NULL,
     
     CONSTRAINT PK_Budget PRIMARY KEY (id),
     CONSTRAINT FK_Budget_Projet FOREIGN KEY (Projetid) REFERENCES Projet(id) ON DELETE CASCADE
 );
 
-----------------------------------------------
----- Création de la table Revenu
-----------------------------------------------
+-- --------------------------------------------
+-- -- Création de la table Revenu
+-- --------------------------------------------
 CREATE TABLE Revenu (
-    id_revenu  NUMBER(10)   NOT NULL,
-    nom        VARCHAR2(255)  NOT NULL,
-    montant    NUMBER(10)    NOT NULL,
-    Budgetid   NUMBER(10)   NOT NULL,
+    id_revenu  INT(10)   NOT NULL AUTO_INCREMENT,
+    nom        VARCHAR(255)  NOT NULL,
+    montant    INT(10)    NOT NULL,
+    Budgetid   INT(10)   NOT NULL,
     
     CONSTRAINT PK_Revenu PRIMARY KEY (id_revenu),
     CONSTRAINT FK_Revenu_Budget FOREIGN KEY (Budgetid) REFERENCES Budget(id) ON DELETE CASCADE
 );
 
-----------------------------------------------
----- Création de la table Depense
-----------------------------------------------
+-- --------------------------------------------
+-- -- Création de la table Depense
+-- --------------------------------------------
 CREATE TABLE Depense (
-    id_depense  NUMBER(10)   NOT NULL,
-    nom         VARCHAR2(255)  NOT NULL,
-    montant     NUMBER(10)    NOT NULL,
-    Budgetid    NUMBER(10)   NOT NULL,
+    id_depense  INT(10)   NOT NULL AUTO_INCREMENT,
+    nom         VARCHAR(255)  NOT NULL,
+    montant     INT(10)    NOT NULL,
+    Budgetid    INT(10)   NOT NULL,
     
     CONSTRAINT PK_Depense PRIMARY KEY (id_depense),
     CONSTRAINT FK_Depense_Budget FOREIGN KEY (Budgetid) REFERENCES Budget(id) ON DELETE CASCADE
 );
 
-----------------------------------------------
----- Création de la table Historique
-----------------------------------------------
+-- --------------------------------------------
+-- -- Création de la table Historique
+-- --------------------------------------------
 CREATE TABLE Historique (
-    id         NUMBER(10)   NOT NULL,
-    Projetid   NUMBER(10)   NOT NULL,
+    id         INT(10)   NOT NULL AUTO_INCREMENT,
+    ProjetId   INT(10)   NOT NULL,
     date_histo DATE          NOT NULL,
-    type       VARCHAR2(255)  NOT NULL,
-    montant    NUMBER(10)   NULL,
+    type       VARCHAR(255)  NOT NULL,
+    montant    INT(10)   NULL,
     
     CONSTRAINT PK_Historique PRIMARY KEY (id),
-    CONSTRAINT FK_Historique_Projet FOREIGN KEY (Projetid) REFERENCES Projet(id) ON DELETE CASCADE
+    CONSTRAINT FK_Historique_Projet FOREIGN KEY (ProjetId) REFERENCES Projet(id) ON DELETE CASCADE
 );
