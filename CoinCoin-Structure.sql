@@ -12,14 +12,13 @@ DROP TABLE Client CASCADE CONSTRAINTS;
 ---- Création de la table Client
 ----------------------------------------------
 CREATE TABLE Client (
-    id            NUMBER(10)    NOT NULL,
+    email         VARCHAR2(255)   UNIQUE NOT NULL,
     nom           VARCHAR2(255)   NOT NULL,
     prenom        VARCHAR2(255)   NOT NULL,
     tel           VARCHAR2(255)   NULL,
-    email         VARCHAR2(255)   NOT NULL,
     mot_de_passe  VARCHAR2(255)   NOT NULL,
     
-    CONSTRAINT PK_Client PRIMARY KEY (id)
+    CONSTRAINT PK_Client PRIMARY KEY (email)
 );
 
 ----------------------------------------------
