@@ -24,8 +24,8 @@ put('/api/client/$email', function($email) {
 get('/api/projet/$id', function($id) {
     projetController::getProjet($id);
 });
-get('/api/projet', function() {
-    projetController::getProjets();
+get('/api/projet/email/$email', function($email) {
+    projetController::getProjets($email);
 });
 post('/api/projet', function() {
     projetController::addProjet();

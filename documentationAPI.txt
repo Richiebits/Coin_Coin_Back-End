@@ -1,0 +1,14 @@
+**GUIDE D'UTILISATION DE L'API DE COIN COIN**
+
+--------------Pour client------------------
+Obtenir tous les clients : GET  /api/client
+Obtenir un client précis : GET  /api/client/{email}
+Créer un client :          POST  /api/client          --Mettre info dans body
+Mettre à jour un client :  PUT  /api/client/{email}   --Mettre info dans body
+
+--------------Pour Projet------------------
+Pas fonctionnel...
+Obtenir les projets d'un client : GET  /api/projet/email/{email}
+Obtenir un projet :               GET  /api/projet/{id}
+
+
