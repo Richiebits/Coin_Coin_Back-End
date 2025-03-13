@@ -1,9 +1,12 @@
 INSERT INTO `Client` (`email`, `nom`, `prenom`, `mot_de_passe`) VALUES 
 ('jambon@gmail.com', 'Jambon', 'Paul', '12345678'),
 ('AnneTremblay@gmail.com', 'Tremblay', 'Anne', '12345678'),
+('BélandTorche@gmail.com', 'Torche', 'Béland', '12345678'),
 ('BenoitJoe@gmail.com', 'Joe', 'Benoit', '12345678');
 
 INSERT INTO `Projet` (`nom`, `but_epargne`, `client_id`) VALUES
 ('Télévision', 600, 'jambon@gmail.com'),
 ('Motoneige', 2000, 'jambon@gmail.com'),
-('Ordinateur portable', 1000, 'AnneTremblay@gmail.com')
+('Ordinateur portable', 1000, 'AnneTremblay@gmail.com'),
+('Saxophone', 2000, 'AnneTremblay@gmail.com'),
+('Trotinette électrique', 500, 'BélandTorche@gmail.com');

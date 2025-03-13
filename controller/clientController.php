@@ -44,6 +44,8 @@ class clientController {
 
         $data = json_decode(file_get_contents('php://input'), true);
 
+        $password = password_hash($data['mot_de_passe']);
+
         try {
             $stmt = $pdo->prepare("INSERT INTO Client (email, nom, prenom, tel, mot_de_passe) VALUES (:email, :nom, :prenom, :tel, :mot_de_passe)");
             $stmt->execute([
@@ -51,7 +53,7 @@ class clientController {
                 ':nom' => $data['nom'],
                 ':prenom' => $data['prenom'],
                 ':tel' => $data['tel'],
-                ':mot_de_passe' => $data['mot_de_passe']
+                ':mot_de_passe' => $password
             ]);
             echo json_encode(['success' => true, 'message' => 'Client créé avec succès']);
         } catch (PDOException $e) {
@@ -67,8 +69,8 @@ class clientController {
 
         $data = json_decode(file_get_contents('php://input'), true);
 
-        echo json_encode($data);
-        
+        $password = password_hash($data['mot_de_passe']);
+
         try {
             $stmt = $pdo->prepare("UPDATE Client SET 
                 nom = :nom, 
@@ -81,7 +83,7 @@ class clientController {
                 ':nom' => $data['nom'],
                 ':prenom' => $data['prenom'],
                 ':tel' => $data['tel'],
-                ':mot_de_passe' => $data['mot_de_passe'],
+                ':mot_de_passe' => $password,
                 ':email' => $email
             ]);
             echo json_encode(['success' => true, 'message' => 'Client modifié avec succès']);

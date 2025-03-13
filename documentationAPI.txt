@@ -3,12 +3,17 @@
 --------------Pour client------------------
 Obtenir tous les clients : GET  /api/client
 Obtenir un client précis : GET  /api/client/{email}
-Créer un client :          POST  /api/client          --Mettre info dans body (`email`, `nom`, `tel, `prenom`, `mot_de_passe`) tel pas obligatoire
-Mettre à jour un client :  PUT  /api/client/{email}   --Mettre info dans body (`email`, `nom`, `tel, `prenom`, `mot_de_passe`) tel pas obligatoire
+Créer un client :          POST  /api/client            
+--Mettre info dans body (`email`, `nom`, `tel, `prenom`, `mot_de_passe`) tel pas obligatoire et pas besoin de hash le code (API s'en occupe)
+
+Mettre à jour un client :  PUT  /api/client/{email}     
+--Mettre info dans body (`email`, `nom`, `tel, `prenom`, `mot_de_passe`) tel pas obligatoire et pas besoin de hash le code (API s'en occupe)
 
 --------------Pour Projet------------------
-Pas fonctionnel...
 Obtenir les projets d'un client : GET  /api/projet/email/{email}
 Obtenir un projet :               GET  /api/projet/{id}
-Ajouter un projet :               POST /api/projet    --Mettre info dans body (`nom`, `but_epargne`, `Clientid`)
+Ajouter un projet :               POST /api/projet      --Mettre info dans body (`nom`, `but_epargne`, `Clientid`)
+Modifier un projet:               PUT /api/projet/{id}  --Mettre info dans body (`nom`, `but_epargne`)
 
+--------------Pour Budget------------------
+En construction...
