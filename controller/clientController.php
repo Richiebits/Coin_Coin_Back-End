@@ -69,7 +69,7 @@ class clientController {
 
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $password = password_hash($data['mot_de_passe']);
+        $password = password_hash($data['mot_de_passe'], PASSWORD_DEFAULT);
 
         try {
             $stmt = $pdo->prepare("UPDATE Client SET 
