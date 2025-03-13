@@ -9,8 +9,8 @@ class projetController {
         header("Content-Type: application/json; charset=utf-8");
 
         try {
-            $stmt = $pdo->prepare("SELECT * FROM Projet WHERE clientid=:clientid");
-            $stmt->execute([':clientid' => $email]);
+            $stmt = $pdo->prepare("SELECT * FROM Projet WHERE client_id=:client_id");
+            $stmt->execute([':client_id' => $email]);
             $projets = $stmt->fetchAll();
             echo json_encode($projets);
         } catch (PDOException $e) {
@@ -45,11 +45,11 @@ class projetController {
         $data = json_decode(file_get_contents('php://input'), true);
 
         try {
-            $stmt = $pdo->prepare("INSERT INTO Projet (nom, but_epargne, Clientid) VALUES (:nom, :but_epargne, :Clientid)");
+            $stmt = $pdo->prepare("INSERT INTO Projet (nom, but_epargne, client_id) VALUES (:nom, :but_epargne, :client_id)");
             $stmt->execute([
                 ':nom' => $data['nom'],
                 ':but_epargne' => $data['but_epargne'],
-                ':Clientid' => $data['Clientid']
+                ':client_id' => $data['client_id']
             ]);
             echo json_encode(['success' => true, 'message' => 'Projet créé avec succès']);
         } catch(PDOException $e) {

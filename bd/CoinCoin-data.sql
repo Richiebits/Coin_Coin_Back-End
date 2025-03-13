@@ -3,7 +3,7 @@ INSERT INTO `Client` (`email`, `nom`, `prenom`, `mot_de_passe`) VALUES
 ('AnneTremblay@gmail.com', 'Tremblay', 'Anne', '12345678'),
 ('BenoitJoe@gmail.com', 'Joe', 'Benoit', '12345678');
 
-INSERT INTO `Projet` (`nom`, `but_epargne`, `Clientid`) VALUES
+INSERT INTO `Projet` (`nom`, `but_epargne`, `client_id`) VALUES
 ('Télévision', 600, 'jambon@gmail.com'),
 ('Motoneige', 2000, 'jambon@gmail.com'),
 ('Ordinateur portable', 1000, 'AnneTremblay@gmail.com')
