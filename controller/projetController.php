@@ -36,14 +36,22 @@ class projetController {
         }
     }
     public static function addProjet() {
-        //Permet d'ajouter un projet
+        //DOIT S'ASSURER QUE LE CLIENTID EXISTE AVANT DE FAIRE LE FETCH
         global $pdo;
 
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=utf-8");
 
+        $data = json_decode(file_get_contents('php://input'), true);
+
         try {
-            //à compléter
+            $stmt = $pdo->prepare("INSERT INTO Projet (nom, but_epargne, Clientid) VALUES (:nom, :but_epargne, :Clientid)");
+            $stmt->execute([
+                ':nom' => $data['nom'],
+                ':but_epargne' => $data['but_epargne'],
+                ':Clientid' => $data['Clientid']
+            ]);
+            echo json_encode(['success' => true, 'message' => 'Projet créé avec succès']);
         } catch(PDOException $e) {
             http_response_code(500);
             echo json_encode(array("error"=> $e->getMessage()));
@@ -56,8 +64,19 @@ class projetController {
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=utf-8");
 
+        $data = json_decode(file_get_contents('php://input'), true);
+
         try {
-            //à compléter
+            $stmt = $pdo->prepare("UPDATE Projet SET 
+            nom = :nom, 
+            but_epargne = :but_epargne
+            WHERE id = :id");
+            $stmt->execute([
+                ':nom' => $data['nom'],
+                ':but_epargne' => $data['but_epargne'],
+                ':id' => $id
+            ]);
+            echo json_encode(['success' => true, 'message' => 'Projet modifié avec succès']);
         } catch(PDOException $e) {
             http_response_code(500);
             echo json_encode(array("error"=> $e->getMessage()));
