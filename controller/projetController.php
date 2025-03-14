@@ -1,7 +1,7 @@
 <?php
 
 class projetController {
-    public static function getProjets($email) {
+    public static function getProjets($clientId) {
         //Permet d'avoir tous les projets d'un client
         global $pdo;
 
@@ -10,7 +10,7 @@ class projetController {
 
         try {
             $stmt = $pdo->prepare("SELECT * FROM Projet WHERE client_id=:client_id");
-            $stmt->execute([':client_id' => $email]);
+            $stmt->execute([':client_id' => $clientId]);
             $projets = $stmt->fetchAll();
             echo json_encode($projets);
         } catch (PDOException $e) {
@@ -19,7 +19,7 @@ class projetController {
         }
     }
     public static function getProjet($id) {
-        //Permet d'avoir tous les projets d'un client
+        //Permet d'avoir 1 projet d'un client
         global $pdo;
 
         header("Access-Control-Allow-Origin: *");

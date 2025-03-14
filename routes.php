@@ -7,8 +7,8 @@ require "controller/clientController.php";
 require "controller/projetController.php";
 
 //Pour client
-get('/api/client/$email', function($email) {
-    clientController::getClient($email);
+get('/api/client/$id', function($id) {
+    clientController::getClient($id);
 });
 get('/api/client', function() {
     clientController::getClients();
@@ -16,16 +16,16 @@ get('/api/client', function() {
 post('/api/client', function() {
     clientController::addClient();
 });
-put('/api/client/$email', function($email) {
-    clientController::updateClient($email);
+put('/api/client/$id', function($id) {
+    clientController::updateClient($id);
 });
 
 //Pour projet
 get('/api/projet/$id', function($id) {
     projetController::getProjet($id);
 });
-get('/api/projet/email/$email', function($email) {
-    projetController::getProjets($email);
+get('/api/projet/client/$clientId', function($clientId) {
+    projetController::getProjets($clientId);
 });
 post('/api/projet', function() {
     projetController::addProjet();

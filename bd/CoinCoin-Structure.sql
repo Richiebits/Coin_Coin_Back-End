@@ -5,13 +5,14 @@
 -- -- Création de la table Client
 -- --------------------------------------------
 CREATE TABLE Client (
+    id            INT(10)        UNIQUE NOT NULL AUTO_INCREMENT,
     email         VARCHAR(255)   UNIQUE NOT NULL,
     nom           VARCHAR(255)   NOT NULL,
     prenom        VARCHAR(255)   NOT NULL,
     tel           VARCHAR(255)   NULL,
     mot_de_passe  VARCHAR(255)   NOT NULL,
     
-    CONSTRAINT PK_Client PRIMARY KEY (email)
+    CONSTRAINT PK_Client PRIMARY KEY (id)
 );
 
 -- --------------------------------------------
@@ -21,11 +22,11 @@ CREATE TABLE Projet (
     id            INT(10)         NOT NULL AUTO_INCREMENT,
     nom           VARCHAR(255)    NOT NULL,
     but_epargne   INT(10)         NOT NULL,
-    client_id     VARCHAR(255)    NOT NULL,
+    client_id     INT(10)         NOT NULL,
     date_creation DATE            DEFAULT CURDATE(),
     
     CONSTRAINT PK_Projet PRIMARY KEY (id),
-    CONSTRAINT FK_Projet_Client FOREIGN KEY (client_id) REFERENCES Client(email) ON DELETE CASCADE
+    CONSTRAINT FK_Projet_Client FOREIGN KEY (client_id) REFERENCES Client(id) ON DELETE CASCADE
 );
 
 -- --------------------------------------------

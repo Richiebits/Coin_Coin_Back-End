@@ -2,15 +2,15 @@
 
 class clientController {
 
-    public static function getClient($email) {
+    public static function getClient($id) {
         global $pdo;
 
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=utf-8");
         
         try {
-            $stmt = $pdo->prepare("SELECT * FROM Client WHERE email=:email");
-            $stmt->execute([':email' => $email]);
+            $stmt = $pdo->prepare("SELECT * FROM Client WHERE id=:id");
+            $stmt->execute([':id' => $id]);
             $client = $stmt->fetchAll();
             echo json_encode($client);
         } catch (PDOException $e) {
@@ -44,7 +44,7 @@ class clientController {
 
         $data = json_decode(file_get_contents('php://input'), true);
 
-        $password = password_hash($data['mot_de_passe']);
+        $password = password_hash($data['mot_de_passe'], PASSWORD_DEFAULT);
 
         try {
             $stmt = $pdo->prepare("INSERT INTO Client (email, nom, prenom, tel, mot_de_passe) VALUES (:email, :nom, :prenom, :tel, :mot_de_passe)");
@@ -61,7 +61,7 @@ class clientController {
             echo json_encode(array("error"=> $e->getMessage()));
         }
     }
-    public static function updateClient($email) {
+    public static function updateClient($id) {
         global $pdo;
 
         header("Access-Control-Allow-Origin: *");
@@ -75,16 +75,18 @@ class clientController {
             $stmt = $pdo->prepare("UPDATE Client SET 
                 nom = :nom, 
                 prenom = :prenom, 
+                email = :email,
                 tel = :tel, 
                 mot_de_passe = :mot_de_passe
-                WHERE email = :email");
+                WHERE id = :id");
 
             $stmt->execute([
                 ':nom' => $data['nom'],
                 ':prenom' => $data['prenom'],
+                ':email' => $data['email'],
                 ':tel' => $data['tel'],
                 ':mot_de_passe' => $password,
-                ':email' => $email
+                'id' => $id
             ]);
             echo json_encode(['success' => true, 'message' => 'Client modifié avec succès']);
 

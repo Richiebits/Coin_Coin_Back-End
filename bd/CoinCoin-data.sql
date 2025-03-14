@@ -5,8 +5,8 @@ INSERT INTO `Client` (`email`, `nom`, `prenom`, `mot_de_passe`) VALUES
 ('BenoitJoe@gmail.com', 'Joe', 'Benoit', '12345678');
 
 INSERT INTO `Projet` (`nom`, `but_epargne`, `client_id`) VALUES
-('Télévision', 600, 'jambon@gmail.com'),
-('Motoneige', 2000, 'jambon@gmail.com'),
-('Ordinateur portable', 1000, 'AnneTremblay@gmail.com'),
-('Saxophone', 2000, 'AnneTremblay@gmail.com'),
-('Trotinette électrique', 500, 'BélandTorche@gmail.com');
+('Télévision', 600, 1),
+('Motoneige', 2000, 1),
+('Ordinateur portable', 1000, 2),
+('Saxophone', 2000, 2),
+('Trotinette électrique', 500, 3);
