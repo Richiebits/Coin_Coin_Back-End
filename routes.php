@@ -5,6 +5,7 @@ require_once(__DIR__."/router.php");
 require "config.php";
 require "controller/clientController.php";
 require "controller/projetController.php";
+require "controller/budgetController.php";
 
 //Pour client
 get('/api/client/$id', function($id) {
@@ -35,5 +36,13 @@ put('/api/projet/$id', function($id) {
 });
 
 //Pour budget
-
+get('/api/budget/projet/$projetId', function($projetId) {
+    budgetController::getbudget($projetId);
+});
+post('/api/budget', function() {
+    budgetController::addBudget();
+});
+put('/api/budget/projet/$projetId', function($projetId) {
+    budgetController::updateBudget($projetId);
+});
 ?>
