@@ -6,6 +6,8 @@ require "config.php";
 require "controller/clientController.php";
 require "controller/projetController.php";
 require "controller/budgetController.php";
+require "controller/depenseController.php";
+require "controller/revenuController.php";
 
 //Routes pour client
 get('/api/client/$id', function($id) {
@@ -44,5 +46,27 @@ post('/api/budget', function() {
 });
 put('/api/budget/projet/$projetId', function($projetId) {
     budgetController::updateBudget($projetId);
+});
+
+//Routes pour depense
+get('/api/depense/budget/$budgetId', function($budgetId) {
+    depenseController::getDepenses($budgetId);
+});
+post('/api/depense', function() {
+    depenseController::addDepense();
+});
+put('/api/depense/$id', function($id) {
+    depenseController::updateDepense($id);
+});
+
+//Routes pour revenu
+get('/api/revenu/budget/$budgetId', function($budgetId) {
+    revenuController::getRevenus($budgetId);
+});
+post('/api/revenu', function() {
+    revenuController::addRevenu();
+});
+put('/api/revenu/$id', function($id) {
+    revenuController::updateRevenu($id);
 });
 ?>
