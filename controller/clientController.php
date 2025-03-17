@@ -18,6 +18,25 @@ class clientController {
             echo json_encode(array("error"=> $e->getMessage()));
         }
     }
+    //ÉTRANGE : DÈS QU'IL Y A UN ACCENT DANS LE MAIL, NE LE TROUVE PAS
+    //SOLUTION TEMPORAIRE : ENVOYER LA REQUETE SANS LES ACCENTS 
+    //EXEMPLE : BélandTorche@gmail.com => BelandTorche@gmail.com
+    public static function getClientAvecEmail($email) {
+        global $pdo;
+
+        header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json; charset=utf-8");
+        
+        try {
+            $stmt = $pdo->prepare("SELECT * FROM Client WHERE email=:email");
+            $stmt->execute([':email' => $email]);
+            $client = $stmt->fetchAll();
+            echo json_encode($client);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(array("error"=> $e->getMessage()));
+        }
+    }
     public static function getClients() {
         global $pdo;
 
