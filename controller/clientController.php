@@ -55,7 +55,6 @@ class clientController {
                 ':tel' => $data['tel'],
                 ':mot_de_passe' => $password
             ]);
-            echo json_encode(['success' => true, 'message' => 'Client créé avec succès']);
         } catch (PDOException $e) {
             http_response_code(500);
             echo json_encode(array("error"=> $e->getMessage()));

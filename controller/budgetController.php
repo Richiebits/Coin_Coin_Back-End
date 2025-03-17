@@ -36,7 +36,6 @@ class budgetController {
                 ':date_fin' => isset($data['date_fin']) ? $data['date_fin'] : null,
                 ':projet_id' => isset($data['projet_id']) ? $data['projet_id'] : null
             ]);
-             echo json_encode(['success' => true, 'message' => 'Budget créé avec succès']);
          } catch(PDOException $e) {
              http_response_code(500);
              echo json_encode(array("error"=> $e->getMessage()));

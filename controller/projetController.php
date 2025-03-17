@@ -51,7 +51,6 @@ class projetController {
                 ':but_epargne' => $data['but_epargne'],
                 ':client_id' => $data['client_id']
             ]);
-            echo json_encode(['success' => true, 'message' => 'Projet créé avec succès']);
         } catch(PDOException $e) {
             http_response_code(500);
             echo json_encode(array("error"=> $e->getMessage()));

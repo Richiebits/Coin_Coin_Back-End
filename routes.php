@@ -7,7 +7,7 @@ require "controller/clientController.php";
 require "controller/projetController.php";
 require "controller/budgetController.php";
 
-//Pour client
+//Routes pour client
 get('/api/client/$id', function($id) {
     clientController::getClient($id);
 });
@@ -21,7 +21,7 @@ put('/api/client/$id', function($id) {
     clientController::updateClient($id);
 });
 
-//Pour projet
+//Routes pour projet
 get('/api/projet/$id', function($id) {
     projetController::getProjet($id);
 });
@@ -35,7 +35,7 @@ put('/api/projet/$id', function($id) {
     projetController::updateProjet($id);
 });
 
-//Pour budget
+//Routes pour budget
 get('/api/budget/projet/$projetId', function($projetId) {
     budgetController::getbudget($projetId);
 });

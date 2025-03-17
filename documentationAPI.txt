@@ -3,9 +3,9 @@
 --------------Pour client------------------
 Obtenir tous les clients : GET  /api/client
 Obtenir un client précis : GET  /api/client/{id}
-Créer un client :          POST  /api/client            
+Créer un client :          POST  /api/client
 --Mettre info dans body (`email`, `nom`, `tel, `prenom`, `mot_de_passe`) tel pas obligatoire et pas besoin de hash le code (API s'en occupe)
-Mettre à jour un client :  PUT  /api/client/{id}     
+Mettre à jour un client :  PUT  /api/client/{id}
 --Mettre info dans body (`email`, `nom`, `tel, `prenom`, `mot_de_passe`) tel pas obligatoire et pas besoin de hash le code (API s'en occupe)
 
 --------------Pour Projet------------------
@@ -16,7 +16,7 @@ Modifier un projet:               PUT /api/projet/{id}  --Mettre info dans body 
 
 --------------Pour Budget------------------
 Obtenir le budget d'un projet :   GET  /api/budget/projet/{id} (l'id du projet)
-Ajouter un budget :               POST /api/budget      
+Ajouter un budget :               POST /api/budget
 --Mettre info dans body (`depenses_total`, `revenus_total`, `date_debut`, `date_fin`, `projet_id`)
 Modifier un budget :              PUT /api/budget/projet/{id} (l'id du projet)
 --Mettre info dans body (`depenses_total`, `revenus_total`, `date_debut`, `date_fin`)

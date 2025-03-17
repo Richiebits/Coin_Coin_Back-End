@@ -1,11 +1,13 @@
 <?php
+// Ce code a été adapté du fichier route de : Sara Aissat (Professeur du cours de Programmation Web)
+
 // Autoriser les requêtes OPTIONS pour CORS
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     header('Access-Control-Allow-Origin: *');  
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');  
     header('Access-Control-Allow-Headers: Content-Type, Authorization'); 
-    http_response_code(200);  
-    exit();  
+    http_response_code(200);
+    exit();
 }
 
 function get($route, $path_to_include)
@@ -94,13 +96,6 @@ function route($route, $path_to_include)
 			return;
 		}
 	}
-	// Callback function
-	// if (is_callable($callback)) {
-	// 	call_user_func_array($callback, $parameters);
-	// 	exit();
-	// }
-	// include_once __DIR__ . "/$path_to_include";
-	// exit();
 	if (is_callable($callback)) {
 		// Si c'est une fonction anonyme (Closure), l'exécuter directement
 		call_user_func_array($callback, $parameters);
