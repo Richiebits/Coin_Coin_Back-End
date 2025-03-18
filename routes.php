@@ -8,6 +8,7 @@ require "controller/projetController.php";
 require "controller/budgetController.php";
 require "controller/depenseController.php";
 require "controller/revenuController.php";
+require "controller/historiqueController.php";
 
 //Routes pour client
 get('/api/client/$id', function($id) {
@@ -71,5 +72,10 @@ post('/api/revenu', function() {
 });
 put('/api/revenu/$id', function($id) {
     revenuController::updateRevenu($id);
+});
+
+//Routes pour historique
+get('api/historique/$projetId', function($projetId) {
+    historiqueController::getHistorique($projetId);
 });
 ?>
