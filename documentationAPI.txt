@@ -1,9 +1,11 @@
 **GUIDE D'UTILISATION DE L'API DE COIN COIN**
+P.S. Pour plus de détail, aller voir dans le document "DocumentationAPI.docx"
 
 --------------Pour client------------------
 Obtenir tous les clients :        GET  /api/client
 Obtenir un client précis :        GET  /api/client/{id}
-Obtenir un client selon son mail :GET  /api/client/email/{email}
+Connecter un client :             POST /api/client/connexion
+--Mettre info dans body (`email`, `mot_de_passe`)
 Créer un client :                 POST  /api/client
 --Mettre info dans body (`email`, `nom`, `tel, `prenom`, `mot_de_passe`) tel pas obligatoire et pas besoin de hash le code (API s'en occupe)
 Mettre à jour un client :         PUT  /api/client/{id}

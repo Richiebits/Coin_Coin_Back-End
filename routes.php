@@ -13,8 +13,8 @@ require "controller/revenuController.php";
 get('/api/client/$id', function($id) {
     clientController::getClient($id);
 });
-get('/api/client/email/$email', function($email) {
-    clientController::getClientAvecEmail($email);
+post('/api/client/connexion', function() {
+    clientController::connecterClient();
 });
 get('/api/client', function() {
     clientController::getClients();

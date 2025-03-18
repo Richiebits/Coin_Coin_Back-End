@@ -1,8 +1,8 @@
 INSERT INTO `Client` (`email`, `nom`, `prenom`, `mot_de_passe`) VALUES 
-('jambon@gmail.com', 'Jambon', 'Paul', '12345678'),
-('AnneTremblay@gmail.com', 'Tremblay', 'Anne', '12345678'),
-('BélandTorche@gmail.com', 'Torche', 'Béland', '12345678'),
-('BenoitJoe@gmail.com', 'Joe', 'Benoit', '12345678');
+('jambon@gmail.com', 'Jambon', 'Paul', password('allo')),
+('AnneTremblay@gmail.com', 'Tremblay', 'Anne', password('bye')),
+('BélandTorche@gmail.com', 'Torche', 'Béland', password('jambon')),
+('BenoitJoe@gmail.com', 'Joe', 'Benoit', password('patate'));
 
 INSERT INTO `Projet` (`nom`, `but_epargne`, `client_id`) VALUES
 ('Télévision', 600, 1),
