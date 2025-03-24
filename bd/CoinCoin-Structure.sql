@@ -36,7 +36,7 @@ CREATE TABLE Budget (
     id              INT(10)    NOT NULL AUTO_INCREMENT,
     depenses_total  INT(10)    NULL,
     revenus_total   INT(10)    NULL,
-    date_debut      DATE       NULL,
+    date_debut      DATE       DEFAULT CURDATE(),
     date_fin        DATE       NULL,
     projet_id       INT(10)    NOT NULL,
     
