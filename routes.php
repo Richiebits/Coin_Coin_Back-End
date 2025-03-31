@@ -40,6 +40,10 @@ post('/api/projet', function() {
 put('/api/projet/$id', function($id) {
     projetController::updateProjet($id);
 });
+delete('/api/projet/delete/$projetId/$clientId', function($projetId, $clientId) {
+    projetController::deleteProjet($projetId, $clientId);
+});
+
 
 //Routes pour budget
 get('/api/budget/projet/$projetId', function($projetId) {

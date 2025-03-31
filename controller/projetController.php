@@ -81,6 +81,32 @@ class projetController {
             echo json_encode(array("error"=> $e->getMessage()));
         }
     }
+    public static function deleteProjet($id, $clientId) {
+        global $pdo;
+    
+        header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json; charset=utf-8");
+    
+        try {
+            $stmt = $pdo->prepare("SELECT id FROM Projet WHERE id = :id AND client_id = :client_id");
+            $stmt->execute([':id' => $id, ':client_id' => $clientId]);
+            $projet = $stmt->fetch();
+    
+            if (!$projet) {
+                http_response_code(403);
+                echo json_encode(["error" => "Projet non trouvé ou accès refusé"]);
+                return;
+            }
+    
+            $stmt = $pdo->prepare("DELETE FROM Projet WHERE id = :id");
+            $stmt->execute([':id' => $id]);
+    
+            echo json_encode(['success' => true, 'message' => 'Projet supprimé avec succès']);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(["error" => $e->getMessage()]);
+        }
+    }    
 }
 
 ?>

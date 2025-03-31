@@ -34,8 +34,8 @@ CREATE TABLE Projet (
 -- --------------------------------------------
 CREATE TABLE Budget (
     id              INT(10)    NOT NULL AUTO_INCREMENT,
-    depenses_total  INT(10)    NULL,
-    revenus_total   INT(10)    NULL,
+    retraits_total   INT(10)    NULL,
+    depots_total    INT(10)    NULL,
     date_debut      DATE       DEFAULT CURDATE(),
     date_fin        DATE       NULL,
     projet_id       INT(10)    NOT NULL,
@@ -45,29 +45,31 @@ CREATE TABLE Budget (
 );
 
 -- --------------------------------------------
--- -- Création de la table Revenu
+-- -- Création de la table Depot
 -- --------------------------------------------
-CREATE TABLE Revenu (
-    id_revenu  INT(10)   NOT NULL AUTO_INCREMENT,
+CREATE TABLE Depot (
+    id_depot  INT(10)   NOT NULL AUTO_INCREMENT,
     nom        VARCHAR(255)  NOT NULL,
-    montant    INT(10)    NOT NULL,
+    montant    INT(10)   NOT NULL,
+    depot_recurrence   INT(10)   NOT NULL,
     budget_id  INT(10)   NOT NULL,
     
-    CONSTRAINT PK_Revenu PRIMARY KEY (id_revenu),
-    CONSTRAINT FK_Revenu_Budget FOREIGN KEY (budget_id) REFERENCES Budget(id) ON DELETE CASCADE
+    CONSTRAINT PK_Depot PRIMARY KEY (id_Depot),
+    CONSTRAINT FK_Depot_Budget FOREIGN KEY (budget_id) REFERENCES Budget(id) ON DELETE CASCADE
 );
 
 -- --------------------------------------------
--- -- Création de la table Depense
+-- -- Création de la table Retrait
 -- --------------------------------------------
-CREATE TABLE Depense (
-    id_depense  INT(10)   NOT NULL AUTO_INCREMENT,
+CREATE TABLE Retrait (
+    id_retrait  INT(10)   NOT NULL AUTO_INCREMENT,
     nom         VARCHAR(255)  NOT NULL,
     montant     INT(10)    NOT NULL,
+    retrait_recurrence INT(10)  NOT NULL,
     budget_id   INT(10)   NOT NULL,
     
-    CONSTRAINT PK_Depense PRIMARY KEY (id_depense),
-    CONSTRAINT FK_Depense_Budget FOREIGN KEY (budget_id) REFERENCES Budget(id) ON DELETE CASCADE
+    CONSTRAINT PK_Retrait PRIMARY KEY (id_retrait),
+    CONSTRAINT FK_Retrait_Budget FOREIGN KEY (budget_id) REFERENCES Budget(id) ON DELETE CASCADE
 );
 
 -- --------------------------------------------
