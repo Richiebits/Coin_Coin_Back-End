@@ -49,7 +49,7 @@ CREATE TABLE Budget (
 -- --------------------------------------------
 CREATE TABLE Depot (
     id_depot  INT(10)   NOT NULL AUTO_INCREMENT,
-    nom        VARCHAR(255)  NOT NULL,
+    nom        VARCHAR(255)  NULL,
     montant    INT(10)   NOT NULL,
     depot_recurrence   INT(10)   NOT NULL,
     budget_id  INT(10)   NOT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE Depot (
 -- --------------------------------------------
 CREATE TABLE Retrait (
     id_retrait  INT(10)   NOT NULL AUTO_INCREMENT,
-    nom         VARCHAR(255)  NOT NULL,
+    nom         VARCHAR(255)  NULL,
     montant     INT(10)    NOT NULL,
     retrait_recurrence INT(10)  NOT NULL,
     budget_id   INT(10)   NOT NULL,

@@ -5,7 +5,7 @@ require_once(__DIR__."/router.php");
 require "config.php";
 require "controller/clientController.php";
 require "controller/projetController.php";
-require "controller/budgetController.php";
+require_once "controller/budgetController.php";
 require "controller/depenseController.php";
 require "controller/revenuController.php";
 require "controller/historiqueController.php";

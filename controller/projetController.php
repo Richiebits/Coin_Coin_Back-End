@@ -1,9 +1,13 @@
 <?php
-
+//require_once __DIR__ . "budgetController.php";
 class projetController {
     public static function getProjets($clientId) {
         //Permet d'avoir tous les projets d'un client
         global $pdo;
+
+        // if(headers_sent($file, $line)){
+        //     echo "Headers send in $file line $line";
+        // }
 
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=utf-8");
@@ -47,10 +51,11 @@ class projetController {
         try {
             $stmt = $pdo->prepare("INSERT INTO Projet (nom, but_epargne, client_id) VALUES (:nom, :but_epargne, :client_id)");
             $stmt->execute([
-                ':nom' => $data['nom'],
+                ':nom' => $data['nomProjet'],
                 ':but_epargne' => $data['but_epargne'],
                 ':client_id' => $data['client_id']
             ]);
+            budgetController::addBudget();
         } catch(PDOException $e) {
             http_response_code(500);
             echo json_encode(array("error"=> $e->getMessage()));

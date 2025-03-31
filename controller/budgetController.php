@@ -1,5 +1,8 @@
 <?php
 
+//require "depenseController.php";
+//require "revenuController.php";
+
 class budgetController {
     
     public static function getBudget($projetId) {
@@ -38,13 +41,18 @@ class budgetController {
         
          //Dans l'execute, vérifie si les variables existent. 
          try {
-            $stmt = $pdo->prepare("INSERT INTO Budget (depenses_total, revenus_total, date_debut, date_fin, projet_id) VALUES (:depenses_total, :revenus_total, :date_debut, :date_fin, :projet_id)");
+            $stmt = $pdo->prepare("INSERT INTO Budget (retraits_total, depots_total, date_fin, projet_id) VALUES (:retraits_total, :depots_total, :date_fin, :projet_id)");
             $stmt->execute([
-                ':depenses_total' => isset($data['depenses_total']) ? $data['depenses_total'] : null,
-                ':revenus_total' => isset($data['revenus_total']) ? $data['revenus_total'] : null,
+                ':retraits_total' => isset($data['retraits_total']) ? $data['retraits_total'] : null,
+                ':depots_total' => isset($data['depots_total']) ? $data['depots_total'] : null,
                 ':date_fin' => isset($data['date_fin']) ? $data['date_fin'] : null,
                 ':projet_id' => $projet["id"]
             ]);
+            if (isset($data['retraits_total']))
+                depenseController::addDepense();
+            if (isset($data['depots_total']))
+                revenuController::addRevenu();
+            
          } catch(PDOException $e) {
              http_response_code(500);
              echo json_encode(array("error"=> $e->getMessage()));
@@ -79,4 +87,3 @@ class budgetController {
         }
     }
 }
-?>
