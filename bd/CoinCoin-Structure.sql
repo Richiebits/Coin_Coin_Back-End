@@ -11,6 +11,7 @@ CREATE TABLE Client (
     prenom        VARCHAR(255)   NOT NULL,
     tel           VARCHAR(255)   NULL,
     mot_de_passe  VARCHAR(255)   NOT NULL,
+    is_admin      BOOLEAN        NOT NULL DEFAULT FALSE,
     
     CONSTRAINT PK_Client PRIMARY KEY (id)
 );

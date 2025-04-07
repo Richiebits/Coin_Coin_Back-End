@@ -1,8 +1,9 @@
-INSERT INTO `Client` (`email`, `nom`, `prenom`, `mot_de_passe`) VALUES 
-('jambon@gmail.com', 'Jambon', 'Paul', password('12345678')),
-('AnneTremblay@gmail.com', 'Tremblay', 'Anne', password('12345678')),
-('BélandTorche@gmail.com', 'Torche', 'Béland', password('12345678')),
-('BenoitJoe@gmail.com', 'Joe', 'Benoit', password('12345678'));
+INSERT INTO `Client` (`email`, `nom`, `prenom`, `mot_de_passe`, `is_admin`) VALUES 
+('jambon@gmail.com', 'Jambon', 'Paul', password('12345678'), false),
+('AnneTremblay@gmail.com', 'Tremblay', 'Anne', password('12345678'), false),
+('BélandTorche@gmail.com', 'Torche', 'Béland', password('12345678'), false),
+('BenoitJoe@gmail.com', 'Joe', 'Benoit', password('12345678'), false),
+('admin@coincoin.ca', '1', 'Admin', password('admin123!'), true);
 
 INSERT INTO `Projet` (`nom`, `but_epargne`, `client_id`) VALUES
 ('Télévision', 600, 1),
