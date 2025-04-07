@@ -21,14 +21,15 @@ INSERT INTO `Budget` (`retraits_total`, `depots_total`, `date_debut`, `date_fin`
 
 INSERT INTO `Retrait` (`nom`, `montant`, `retrait_recurrence` , `budget_id`) VALUES
 ("épicerie", 100, 14 , 1),
-("Abonnement Netflix", 14, 7, 1),
-("Téléphone", 30, 30, 2),
-("Assurance", 200, 365, 2),
-("Transport", 80, 14, 3),
-("Chauffage", 120, 30, 3);
+("Abonnement Netflix", 14, 7, 2),
+("Téléphone", 30, 14, 3),
+("Assurance", 200, 30, 4),
+("Transport", 80, 14, 4),
+("Chauffage", 120, 30, 5);
 
 INSERT INTO `Depot` (`nom`, `montant`, `depot_recurrence` , `budget_id`) VALUES
 ("Hôpital", 400, 14, 1),
 ("Cryptomonnaie", 2000, 7, 2),
-("Professeur", 300, 365, 3),
-("Orchestre", 250, 30, 4);
+("Professeur", 150, 7, 3),
+("Orchestre", 200, 7, 4),
+("Gouvernement", 150, 14, 5);
