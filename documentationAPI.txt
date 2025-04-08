@@ -24,18 +24,18 @@ Ajouter un budget :               POST /api/budget
 Modifier un budget :              PUT /api/budget/projet/{id} (l'id du projet)
 --Mettre info dans body (`depenses_total`, `revenus_total`, `date_debut`, `date_fin`)
 
---------------Pour Depense------------------
-Obtenir les dépenses d'un budget :GET  /api/depense/budget/{id} (l'id du budget)
-Ajouter une dépense :             POST /api/depense
---Mettre info dans body (`nom`, `montant`, `budget_id`)
-Modifier une dépense :            PUT  /api/depense/{id}
+--------------Pour Retrait------------------
+Obtenir les retraits d'un budget :GET  /api/depense/budget/{id} (l'id du budget)
+Ajouter une retrait :             POST /api/depense
+--Mettre info dans body (`nom`, `montant`, `retrait_recurrence`, `budget_id`)
+Modifier une retrait :            PUT  /api/depense/{id}
 --Mettre info dans body (`nom`, `montant`)
 
---------------Pour Revenu------------------
-Obtenir les revenus d'un budget : GET  /api/revenu/budget/{id} (l'id du budget)
-Ajouter un revenu :               POST /api/revenu
---Mettre info dans body (`nom`, `montant`, `budget_id`)
-Modifier un revenu :              PUT  /api/revenu/{id}
+--------------Pour Dépot------------------
+Obtenir les dépots d'un budget : GET  /api/revenu/budget/{id} (l'id du budget)
+Ajouter un dépot :               POST /api/revenu
+--Mettre info dans body (`nom`, `montant`, `depot_recurrence`, `budget_id`)
+Modifier un dépot :              PUT  /api/revenu/{id}
 --Mettre info dans body (`nom`, `montant`) 
 
 --------------Pour Revenu------------------
