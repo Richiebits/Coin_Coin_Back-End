@@ -3,6 +3,7 @@
 require_once(__DIR__."/router.php");
 
 require "config.php";
+require "tokenFunction.php";
 require "controller/clientController.php";
 require "controller/projetController.php";
 require_once "controller/budgetController.php";
