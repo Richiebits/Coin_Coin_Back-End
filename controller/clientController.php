@@ -1,4 +1,6 @@
 <?php
+require_once(__DIR__ . '/../config.php');
+use Firebase\JWT\JWT;
 
 class clientController {
 
@@ -7,6 +9,17 @@ class clientController {
 
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=utf-8");
+
+        //Vérification du token et obtention de l'id de l'utilisateur
+        try{
+            $userid = verifyToken();
+        } catch(Exception $e){
+            $response = [];
+            http_response_code(401);
+            $response['error'] = "Non autorisé : " . $e;
+            echo json_encode($response);
+            return;
+        }
         
         try {
             $stmt = $pdo->prepare("SELECT * FROM Client WHERE id=:id");
@@ -20,6 +33,7 @@ class clientController {
     }
     public static function connecterClient() {
         global $pdo;
+        global $API_SECRET;
 
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=utf-8");
@@ -36,6 +50,27 @@ class clientController {
         } catch(PDOException $e) {
             http_response_code(500);
             echo json_encode(array("error"=> $e->getMessage()));
+        }
+
+        //Création et envoie du token
+        if($client){
+            $payload = [
+                //Info à mettre dans le token
+                "iss" => "http://localhost:8000", // Émetteur du token
+                "aud" => "http://localhost:8000", // Audience du token
+                "iat" => time(), // Temps où le JWT a été émis
+                "exp" => time() + 3600, // Expiration du token (1 heure plus tard)
+                "user_id" => $client['id']
+            ];
+            $jwt = JWT::encode($payload, $API_SECRET, 'HS256'); // Génère le token
+            $response['message'] = "Authentification réussie";
+            $response['token'] = $jwt;
+            http_response_code(200);
+            echo json_encode($response);
+        } else {
+            http_response_code(401);
+            $response['error'] = "Non autorisé";
+            echo json_encode($response);
         }
     }
     public static function getClients() {

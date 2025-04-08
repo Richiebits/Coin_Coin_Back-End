@@ -1,4 +1,16 @@
 <?php
+require_once __DIR__."/vendor/php-jwt/JWTExceptionWithPayloadInterface.php";
+require_once __DIR__."/vendor/php-jwt/BeforeValidException.php";
+require_once __DIR__."/vendor/php-jwt/CachedKeySet.php";
+require_once __DIR__."/vendor/php-jwt/ExpiredException.php";
+require_once __DIR__."/vendor/php-jwt/JWK.php";
+require_once __DIR__."/vendor/php-jwt/JWT.php";
+require_once __DIR__."/vendor/php-jwt/Key.php";
+require_once __DIR__."/vendor/php-jwt/SignatureInvalidException.php";
+
+//Clé secrète pour token
+global $API_SECRET;
+$API_SECRET = "Y!z8q^5Xe0gMW*PLp&nd2m@3KxVfTR#";
 
 //Configuration et connexion à la base de données 
 $host = 'db';

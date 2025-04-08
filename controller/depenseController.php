@@ -7,6 +7,18 @@ class depenseController {
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=utf-8");
 
+        //Vérification du token et obtention de l'id de l'utilisateur
+        try{
+            $userid = verifyToken();
+        } catch(Exception $e){
+            $response = [];
+            http_response_code(401);
+            $response['error'] = "Non autorisé : " . $e;
+            echo json_encode($response);
+            return;
+        }
+
+
         try {
             $stmt = $pdo->prepare("SELECT * FROM Retrait WHERE budget_id=:budget_id");
             $stmt->execute([':budget_id' => $budgetId]);
@@ -22,6 +34,18 @@ class depenseController {
 
          header("Access-Control-Allow-Origin: *");
          header("Content-Type: application/json; charset=utf-8");
+
+         //Vérification du token et obtention de l'id de l'utilisateur
+        try{
+            $userid = verifyToken();
+        } catch(Exception $e){
+            $response = [];
+            http_response_code(401);
+            $response['error'] = "Non autorisé : " . $e;
+            echo json_encode($response);
+            return;
+        }
+
  
          $data = json_decode(file_get_contents('php://input'), true);
 
@@ -53,6 +77,18 @@ class depenseController {
 
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=utf-8");
+        
+        //Vérification du token et obtention de l'id de l'utilisateur
+        try{
+            $userid = verifyToken();
+        } catch(Exception $e){
+            $response = [];
+            http_response_code(401);
+            $response['error'] = "Non autorisé : " . $e;
+            echo json_encode($response);
+            return;
+        }
+
 
         $data = json_decode(file_get_contents('php://input'), true);
         
