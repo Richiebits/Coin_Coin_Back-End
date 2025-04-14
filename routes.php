@@ -27,6 +27,9 @@ post('/api/client', function() {
 put('/api/client/$id', function($id) {
     clientController::updateClient($id);
 });
+delete('/api/client/$id', function($id) {
+    clientController::deleteClient($id);
+});
 
 //Routes pour projet
 get('/api/projet/$id', function($id) {

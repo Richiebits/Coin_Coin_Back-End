@@ -34,7 +34,7 @@ class clientController {
     public static function connecterClient() {
         global $pdo;
         global $API_SECRET;
-
+        
         header("Access-Control-Allow-Origin: *");
         header("Content-Type: application/json; charset=utf-8");
 
@@ -45,22 +45,21 @@ class clientController {
                 ':email' => $data['email'],
                 ':mot_de_passe' => $data['mot_de_passe']
             ]);
-            $client = $stmt->fetch();
-            echo json_encode($client);
+            $response = $stmt->fetch();
         } catch(PDOException $e) {
             http_response_code(500);
             echo json_encode(array("error"=> $e->getMessage()));
         }
 
         //Création et envoie du token
-        if($client){
+        if($response){
             $payload = [
                 //Info à mettre dans le token
                 "iss" => "http://localhost:8000", // Émetteur du token
                 "aud" => "http://localhost:8000", // Audience du token
                 "iat" => time(), // Temps où le JWT a été émis
                 "exp" => time() + 3600, // Expiration du token (1 heure plus tard)
-                "user_id" => $client['id']
+                "user_id" => $response['id']
             ];
             $jwt = JWT::encode($payload, $API_SECRET, 'HS256'); // Génère le token
             $response['message'] = "Authentification réussie";
@@ -139,6 +138,39 @@ class clientController {
                 'id' => $id
             ]);
             echo json_encode(['success' => true, 'message' => 'Client modifié avec succès']);
+
+        } catch(PDOException $e) {
+            http_response_code(500);
+            echo json_encode(array("error"=> $e->getMessage()));
+        }
+    }
+    public static function deleteClient($id) {
+        global $pdo;
+
+        header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json; charset=utf-8");
+
+        try{
+            $userid = verifyToken();
+            $stmt = $pdo->prepare("SELECT is_admin FROM Client WHERE id=:id");
+            $stmt->execute([':id' => $userid]);
+            $client = $stmt->fetch();
+            if (!$client || $client["is_admin"] != 1)
+                throw new Exception("Utilisateur n'a pas les permis d'administrateur");
+        } catch(Exception $e){
+            $response = [];
+            http_response_code(401);
+            $response['error'] = "Non autorisé : " . $e;
+            echo json_encode($response);
+            return;
+        }
+
+
+        try {
+            $stmt = $pdo->prepare("DELETE FROM Client WHERE id=:id");
+
+            $stmt->execute(['id' => $id]);
+            echo json_encode(['success' => true, 'message' => 'Client supprimé avec succès']);
 
         } catch(PDOException $e) {
             http_response_code(500);
