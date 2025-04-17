@@ -4,21 +4,13 @@ class historiqueController {
     public static function getHistorique($projetId) {
         global $pdo;
 
-        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-            header("Access-Control-Allow-Origin: *");
-            header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-            header("Access-Control-Allow-Headers: Content-Type");
-            exit(0);
-        }
-        
-        // Et ensuite dans ta méthode réelle
         header("Access-Control-Allow-Origin: *");
-        
+        header("Content-Type: application/json; charset=utf-8");
 
         try {
             $stmt = $pdo->prepare("SELECT * FROM Historique WHERE projet_id=:projet_id");
             $stmt->execute([':projet_id' => $projetId]);
-            $historique = $stmt->fetch();
+            $historique = $stmt->fetchAll();
             echo json_encode($historique);
         } catch (PDOException $e) {
             http_response_code(500);
@@ -28,17 +20,9 @@ class historiqueController {
 
     public static function addHistorique() {
         global $pdo;
-    
-        if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-            header("Access-Control-Allow-Origin: *");
-            header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-            header("Access-Control-Allow-Headers: Content-Type");
-            exit(0);
-        }
         
-        // Et ensuite dans ta méthode réelle
         header("Access-Control-Allow-Origin: *");
-        
+        header("Content-Type: application/json; charset=utf-8");
     
         // Vérification du token
         try{

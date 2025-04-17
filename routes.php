@@ -86,10 +86,10 @@ put('/api/revenu/$id', function($id) {
 });
 
 //Routes pour historique
-get('api/historique/$projetId', function($projetId) {
+get('/api/historique/projet/$projetId', function($projetId) {
     historiqueController::getHistorique($projetId);
 });
-post('api/historique', function() {
+post('/api/historique', function() {
     historiqueController::addHistorique();
 });
 ?>
