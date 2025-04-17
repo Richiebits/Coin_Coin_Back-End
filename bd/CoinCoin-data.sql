@@ -33,3 +33,11 @@ INSERT INTO `Depot` (`nom`, `montant`, `depot_recurrence` , `budget_id`) VALUES
 ("Professeur", 150, 7, 3),
 ("Orchestre", 200, 7, 4),
 ("Gouvernement", 150, 14, 5);
+
+INSERT INTO `Historique` (`projet_id`, `date_histo`, `type`, `montant`) VALUES
+(1, '2025-04-15', 'Dépôt', 400),
+(2, '2025-04-10', 'Retrait', 2000),
+(3, '2025-04-05', 'Dépôt', 150),
+(4, '2025-04-03', 'Dépôt', 200),
+(5, '2025-04-01', 'Retrait', 150);
+
