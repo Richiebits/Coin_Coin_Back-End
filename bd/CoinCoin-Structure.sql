@@ -80,8 +80,8 @@ CREATE TABLE Historique (
     id         INT(10)   NOT NULL AUTO_INCREMENT,
     projet_id  INT(10)   NOT NULL,
     date_histo DATE          NOT NULL,
-    type       VARCHAR(255)  NOT NULL,
-    montant    INT(10)   NULL,
+    type        ENUM('depot', 'retrait') NOT NULL,
+    montant    INT(10)   NOT NULL,
     
     CONSTRAINT PK_Historique PRIMARY KEY (id),
     CONSTRAINT FK_Historique_Projet FOREIGN KEY (projet_id) REFERENCES Projet(id) ON DELETE CASCADE
