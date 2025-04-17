@@ -60,7 +60,7 @@ put('/api/budget/projet/$projetId', function($projetId) {
     budgetController::updateBudget($projetId);
 });
 
-//Routes pour depense
+//Routes pour retrait
 get('/api/depense/budget/$budgetId', function($budgetId) {
     depenseController::getDepenses($budgetId);
 });
@@ -71,7 +71,7 @@ put('/api/depense/$id', function($id) {
     depenseController::updateDepense($id);
 });
 
-//Routes pour revenu
+//Routes pour depot
 get('/api/revenu/budget/$budgetId', function($budgetId) {
     revenuController::getRevenus($budgetId);
 });

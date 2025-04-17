@@ -65,8 +65,11 @@ class depenseController {
                 ':nom' => $data['nomRetrait'],
                 ':montant' => $data['montantRetrait'],
                 ':retrait_recurrence' => $data['retrait_recurrence'],
-                ':budget_id' => $budget['id']
+                ':budget_id' => $data['id']
             ]);
+
+            echo json_encode(["success" => true]);
+
          } catch(PDOException $e) {
              http_response_code(500);
              echo json_encode(array("error"=> $e->getMessage()));
