@@ -27,6 +27,9 @@ post('/api/client', function() {
 put('/api/client/$id', function($id) {
     clientController::updateClient($id);
 });
+put('/api/admin/client/$id', function($id){
+    clientController::updateClientAdmin($id);
+});
 delete('/api/client/$id', function($id) {
     clientController::deleteClient($id);
 });
