@@ -144,6 +144,36 @@ class clientController {
             echo json_encode(array("error"=> $e->getMessage()));
         }
     }
+    public static function updateClientAdmin($id) {
+        global $pdo;
+
+        header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json; charset=utf-8");
+
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        try {
+            $stmt = $pdo->prepare("UPDATE Client SET 
+                nom = :nom, 
+                prenom = :prenom, 
+                email = :email,
+                tel = :tel
+                WHERE id = :id");
+
+            $stmt->execute([
+                ':nom' => $data['nom'],
+                ':prenom' => $data['prenom'],
+                ':email' => $data['email'],
+                ':tel' => $data['tel'],
+                ':id' => $id
+            ]);
+            echo json_encode(['success' => true, 'message' => 'Client modifié avec succès']);
+
+        } catch(PDOException $e) {
+            http_response_code(500);
+            echo json_encode(array("error"=> $e->getMessage()));
+        }
+    }
     public static function deleteClient($id) {
         global $pdo;
 
