@@ -17,7 +17,23 @@ class historiqueController {
             echo json_encode(array("error"=> $e->getMessage()));
         }
     }
+    public static function getHistoriqueSelonClient($id){
+        global $pdo;
 
+        header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json; charset=utf-8");
+
+        try {
+            $stmt = $pdo->prepare("SELECT * FROM Historique WHERE client_id=:client_id");
+            $stmt->execute([':client_id' => $id]);
+            $historique = $stmt->fetchAll();
+            echo json_encode($historique);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(array("error"=> $e->getMessage()));
+        }
+    }
+    
     public static function addHistorique() {
         global $pdo;
         
@@ -39,14 +55,14 @@ class historiqueController {
         $data = json_decode(file_get_contents("php://input"), true);
     
         // Vérification des champs requis
-        if (!isset($data['projet_id'], $data['date_histo'], $data['type'], $data['montant'])) {
+        if (!isset($data['projet_id'], $data['client_id'], $data['date_histo'], $data['type'], $data['montant'])) {
             http_response_code(400);
             echo json_encode(["error" => "Données incomplètes"]);
             return;
         }
     
         // Vérification du type
-        if (!in_array($data['type'], ['depot', 'retrait'])) {
+        if (!in_array($data['type'], ['depot', 'retrait', 'création projet'])) {
             http_response_code(400);
             echo json_encode(["error" => "Type invalide"]);
             return;
@@ -54,9 +70,10 @@ class historiqueController {
     
         try {
             // Insertion dans la table Historique
-            $stmt = $pdo->prepare("INSERT INTO Historique (projet_id, date_histo, type, montant) VALUES (:projet_id, :date_histo, :type, :montant)");
+            $stmt = $pdo->prepare("INSERT INTO Historique (projet_id, client_id, date_histo, type, montant) VALUES (:projet_id, :client_id, :date_histo, :type, :montant)");
             $stmt->execute([
                 ':projet_id' => $data['projet_id'],
+                ':client_id' => $data['client_id'],
                 ':date_histo' => $data['date_histo'],
                 ':type' => $data['type'],
                 ':montant' => $data['montant']

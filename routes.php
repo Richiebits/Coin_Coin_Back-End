@@ -89,6 +89,9 @@ put('/api/revenu/$id', function($id) {
 get('/api/historique/projet/$projetId', function($projetId) {
     historiqueController::getHistorique($projetId);
 });
+get('/api/historique/$id', function($id) {
+    historiqueController::getHistoriqueSelonClient($id);
+});
 post('/api/historique', function() {
     historiqueController::addHistorique();
 });

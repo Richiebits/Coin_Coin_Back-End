@@ -1,7 +1,7 @@
 INSERT INTO `Client` (`email`, `nom`, `prenom`, `mot_de_passe`, `is_admin`) VALUES 
 ('jambon@gmail.com', 'Jambon', 'Paul', password('12345678'), false),
 ('AnneTremblay@gmail.com', 'Tremblay', 'Anne', password('12345678'), false),
-('BélandTorche@gmail.com', 'Torche', 'Béland', password('12345678'), false),
+('BelandTorche@gmail.com', 'Torche', 'Béland', password('12345678'), false),
 ('BenoitJoe@gmail.com', 'Joe', 'Benoit', password('12345678'), false),
 ('admin@coincoin.ca', '1', 'Admin', password('admin123!'), true);
 
@@ -34,10 +34,10 @@ INSERT INTO `Depot` (`nom`, `montant`, `depot_recurrence` , `budget_id`) VALUES
 ("Orchestre", 200, 7, 4),
 ("Gouvernement", 150, 14, 5);
 
-INSERT INTO `Historique` (`projet_id`, `date_histo`, `type`, `montant`) VALUES
-(1, '2025-04-15', 'depot', 400),
-(2, '2025-04-10', 'retrait', 2000),
-(3, '2025-03-25', 'depot', 150),
-(4, '2025-04-13', 'depot', 1000),
-(5, '2025-04-01', 'retrait', 150);
+INSERT INTO `Historique` (`projet_id`, `client_id`, `date_histo`, `type`, `montant`) VALUES
+(1, 1, '2025-04-15', 'depot', 400),
+(2, 1, '2025-04-10', 'retrait', 2000),
+(3, 2, '2025-03-25', 'depot', 150),
+(4, 2, '2025-04-13', 'depot', 1000),
+(5, 3, '2025-04-01', 'retrait', 150);
 
