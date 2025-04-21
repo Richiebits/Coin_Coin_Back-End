@@ -55,14 +55,14 @@ class budgetController {
          try {
             $stmt = $pdo->prepare("INSERT INTO Budget (retraits_total, depots_total, date_fin, projet_id) VALUES (:retraits_total, :depots_total, :date_fin, :projet_id)");
             $stmt->execute([
-                ':retraits_total' => isset($data['retraits_total']) ? $data['retraits_total'] : null,
-                ':depots_total' => isset($data['depots_total']) ? $data['depots_total'] : null,
+                ':retraits_total' => isset($data['montantRetrait']) ? $data['montantRetrait'] : null,
+                ':depots_total' => isset($data['montantDepot']) ? $data['montantDepot'] : null,
                 ':date_fin' => isset($data['date_fin']) ? $data['date_fin'] : null,
                 ':projet_id' => $projet["id"]
             ]);
-            if (isset($data['retraits_total']))
+            if (isset($data['montantRetrait']))
                 depenseController::addDepense();
-            if (isset($data['depots_total']))
+            if (isset($data['montantDepot']))
                 revenuController::addRevenu();
             
          } catch(PDOException $e) {

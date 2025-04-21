@@ -31,9 +31,6 @@
         public static function addRevenu() {
             global $pdo;
 
-            header("Access-Control-Allow-Origin: *");
-            header("Content-Type: application/json; charset=utf-8");
-
             //Vérification du token et obtention de l'id de l'utilisateur
             try{
                 $userid = verifyToken();
@@ -63,7 +60,7 @@
                     ':nom' => $data['nomDepot'],
                     ':montant' => $data['montantDepot'],
                     ':depot_recurrence' => $data['depot_recurrence'],
-                    ':budget_id' => $data['id']
+                    ':budget_id' => $budget['id']
                 ]);
 
                 echo json_encode(["success" => true]);

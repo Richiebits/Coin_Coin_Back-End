@@ -32,9 +32,6 @@ class depenseController {
     public static function addDepense() {
         global $pdo;
 
-         header("Access-Control-Allow-Origin: *");
-         header("Content-Type: application/json; charset=utf-8");
-
          //Vérification du token et obtention de l'id de l'utilisateur
         try{
             $userid = verifyToken();
@@ -65,7 +62,7 @@ class depenseController {
                 ':nom' => $data['nomRetrait'],
                 ':montant' => $data['montantRetrait'],
                 ':retrait_recurrence' => $data['retrait_recurrence'],
-                ':budget_id' => $data['id']
+                ':budget_id' => $budget['id']
             ]);
 
             echo json_encode(["success" => true]);
