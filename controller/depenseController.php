@@ -31,47 +31,46 @@ class depenseController {
     }
     public static function addDepense() {
         global $pdo;
-
-         //Vérification du token et obtention de l'id de l'utilisateur
-        try{
+    
+        // Vérification du token
+        try {
             $userid = verifyToken();
-        } catch(Exception $e){
-            $response = [];
+        } catch (Exception $e) {
             http_response_code(401);
-            $response['error'] = "Non autorisé : " . $e;
-            echo json_encode($response);
+            echo json_encode(["error" => "Non autorisé : " . $e]);
             return;
         }
-
- 
-         $data = json_decode(file_get_contents('php://input'), true);
-
-         try {
+    
+        $data = json_decode(file_get_contents('php://input'), true);
+    
+        try {
             $stmt = $pdo->prepare("SELECT id FROM Budget ORDER BY id DESC LIMIT 1");
             $stmt->execute();
             $budget = $stmt->fetch();
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             http_response_code(500);
-            echo json_encode(array("error"=> $e->getMessage()));
+            echo json_encode(["error" => $e->getMessage()]);
+            return;
         }
- 
-         //Dans l'execute, vérifie si les variables existent. 
-         try {
-            $stmt = $pdo->prepare("INSERT INTO Retrait (nom, montant, retrait_recurrence, budget_id) VALUES (:nom, :montant, :retrait_recurrence, :budget_id)");
+    
+        try {
+            $stmt = $pdo->prepare("INSERT INTO Retrait (nom, montant, retrait_recurrence, budget_id) 
+                VALUES (:nom, :montant, :retrait_recurrence, :budget_id)");
             $stmt->execute([
                 ':nom' => $data['nomRetrait'],
                 ':montant' => $data['montantRetrait'],
                 ':retrait_recurrence' => $data['retrait_recurrence'],
                 ':budget_id' => $budget['id']
             ]);
-
-            echo json_encode(["success" => true]);
-
-         } catch(PDOException $e) {
-             http_response_code(500);
-             echo json_encode(array("error"=> $e->getMessage()));
-         }
+    
+            historiqueController::addHistorique();
+    
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(["error" => $e->getMessage()]);
+        }
     }
+    
     public static function updateDepense($id) {
         global $pdo;
 
