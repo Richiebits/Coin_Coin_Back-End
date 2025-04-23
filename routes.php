@@ -95,4 +95,13 @@ get('/api/historique/$id', function($id) {
 post('/api/historique', function() {
     historiqueController::addHistorique();
 });
+
+function headerIsSet($headerName) {
+    foreach (headers_list() as $header) {
+        if (stripos($header, $headerName . ':') === 0) {
+            return true;
+        }
+    }
+    return false;
+}
 ?>

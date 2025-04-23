@@ -31,6 +31,10 @@
         public static function addRevenu() {
             global $pdo;
 
+            if (!headerIsSet('Access-Control-Allow-Origin') && !headerIsSet('Content-Type: application/json; charset=utf-8')) {
+                header("Access-Control-Allow-Origin: *");
+                header("Content-Type: application/json; charset=utf-8");
+            }
             //Vérification du token et obtention de l'id de l'utilisateur
             try{
                 $userid = verifyToken();
@@ -43,15 +47,17 @@
             }
  
             $data = json_decode(file_get_contents('php://input'), true);
-
-            try {
-                $stmt = $pdo->prepare("SELECT id FROM Budget ORDER BY id DESC LIMIT 1");
-                $stmt->execute();
-                $budget = $stmt->fetch();
-            } catch(PDOException $e) {
-                http_response_code(500);
-                echo json_encode(array("error"=> $e->getMessage()));
+            if (!isset($data['id'])) {
+                try {
+                    $stmt = $pdo->prepare("SELECT id FROM Budget ORDER BY id DESC LIMIT 1");
+                    $stmt->execute();
+                    $budget = $stmt->fetch();
+                } catch(PDOException $e) {
+                    http_response_code(500);
+                    echo json_encode(array("error"=> $e->getMessage()));
+                }
             }
+            
  
             //Dans l'execute, vérifie si les variables existent. 
             try {
@@ -60,7 +66,7 @@
                     ':nom' => $data['nomDepot'],
                     ':montant' => $data['montantDepot'],
                     ':depot_recurrence' => $data['depot_recurrence'],
-                    ':budget_id' => $budget['id']
+                    ':budget_id' => isset($data['id']) ? $data['id'] : $budget['id']
                 ]);
 
                 echo json_encode(["success" => true]);
