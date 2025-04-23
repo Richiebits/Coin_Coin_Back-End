@@ -34,7 +34,7 @@ class historiqueController {
         }
     }
     
-    public static function addHistorique() {
+    public static function addHistorique($recurrence) {
         global $pdo;
         
         if (!headerIsSet('Access-Control-Allow-Origin') && !headerIsSet('Content-Type: application/json; charset=utf-8')) {
@@ -72,13 +72,14 @@ class historiqueController {
         }
     
         try {
-            $stmt = $pdo->prepare("INSERT INTO Historique (projet_id, client_id, date_histo, type, montant) VALUES (:projet_id, :client_id, :date_histo, :type, :montant)");
+            $stmt = $pdo->prepare("INSERT INTO Historique (projet_id, client_id, date_histo, type, montant, recurrence) VALUES (:projet_id, :client_id, :date_histo, :type, :montant, :recurrence)");
             $stmt->execute([
                 ':projet_id' => $data['projet_id'],
                 ':client_id' => $data['client_id'],
                 ':date_histo' => $data['date_histo'],
                 ':type' => $data['type'],
-                ':montant' => $data['montant']
+                ':montant' => $data['montant'],
+                ':recurrence' => $recurrence
             ]);
     
             http_response_code(201);

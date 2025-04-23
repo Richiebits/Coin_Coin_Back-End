@@ -68,7 +68,7 @@ class depenseController {
                 ':budget_id' => isset($data['id']) ? $data['id'] : $budget['id']
             ]);
     
-            historiqueController::addHistorique();
+            historiqueController::addHistorique($data['retrait_recurrence']);
     
         } catch (PDOException $e) {
             http_response_code(500);
