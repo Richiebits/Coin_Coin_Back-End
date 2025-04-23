@@ -65,7 +65,7 @@ class depenseController {
                 ':nom' => $data['nomRetrait'],
                 ':montant' => $data['montantRetrait'],
                 ':retrait_recurrence' => $data['retrait_recurrence'],
-                ':budget_id' => $budget['id']
+                ':budget_id' => isset($data['id']) ? $data['id'] : $budget['id']
             ]);
     
             historiqueController::addHistorique();
