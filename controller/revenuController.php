@@ -38,14 +38,12 @@
             //Vérification du token et obtention de l'id de l'utilisateur
             try{
                 $userid = verifyToken();
-            }   catch(Exception $e){
-                $response = [];
+            } catch (Exception $e) {
                 http_response_code(401);
-                $response['error'] = "Non autorisé : " . $e;
-                echo json_encode($response);
+                echo json_encode(["error" => "Non autorisé : " . $e]);
                 return;
             }
- 
+        
             $data = json_decode(file_get_contents('php://input'), true);
             if (!isset($data['id'])) {
                 try {
@@ -61,21 +59,23 @@
  
             //Dans l'execute, vérifie si les variables existent. 
             try {
-                $stmt = $pdo->prepare("INSERT INTO Depot (nom, montant, depot_recurrence, budget_id) VALUES (:nom, :montant, :depot_recurrence, :budget_id)");
+                $stmt = $pdo->prepare("INSERT INTO Depot (nom, montant, depot_recurrence, budget_id) 
+                    VALUES (:nom, :montant, :depot_recurrence, :budget_id)");
                 $stmt->execute([
                     ':nom' => $data['nomDepot'],
                     ':montant' => $data['montantDepot'],
                     ':depot_recurrence' => $data['depot_recurrence'],
                     ':budget_id' => isset($data['id']) ? $data['id'] : $budget['id']
                 ]);
-
-                echo json_encode(["success" => true]);
-
-            } catch(PDOException $e) {
+        
+                historiqueController::addHistorique();
+        
+            } catch (PDOException $e) {
                 http_response_code(500);
-                echo json_encode(array("error"=> $e->getMessage()));
+                echo json_encode(["error" => $e->getMessage()]);
             }
         }
+        
         public static function updateRevenu($id) {
             global $pdo;
 

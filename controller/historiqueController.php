@@ -38,7 +38,10 @@ class historiqueController {
         global $pdo;
         
         header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Headers: Content-Type, Authorization");
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
         header("Content-Type: application/json; charset=utf-8");
+
     
         // Vérification du token
         try{
@@ -69,7 +72,6 @@ class historiqueController {
         }
     
         try {
-            // Insertion dans la table Historique
             $stmt = $pdo->prepare("INSERT INTO Historique (projet_id, client_id, date_histo, type, montant) VALUES (:projet_id, :client_id, :date_histo, :type, :montant)");
             $stmt->execute([
                 ':projet_id' => $data['projet_id'],
