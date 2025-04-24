@@ -34,14 +34,13 @@ class historiqueController {
         }
     }
     
-    public static function addHistorique($recurrence) {
+    public static function addHistorique($recurrence, $type = "") {
         global $pdo;
         
         if (!headerIsSet('Access-Control-Allow-Origin') && !headerIsSet('Content-Type: application/json; charset=utf-8')) {
             header("Access-Control-Allow-Origin: *");
             header("Content-Type: application/json; charset=utf-8");
         }
-
     
         // Vérification du token
         try{
@@ -57,28 +56,38 @@ class historiqueController {
         // Lecture des données JSON
         $data = json_decode(file_get_contents("php://input"), true);
     
-        // Vérification des champs requis
-        if (!isset($data['projet_id'], $data['client_id'], $data['date_histo'], $data['type'], $data['montant'])) {
-            http_response_code(400);
-            echo json_encode(["error" => "Données incomplètes"]);
-            return;
-        }
-    
         // Vérification du type
-        if (!in_array($data['type'], ['depot', 'retrait', 'création projet'])) {
+        if (isset($data['type']) && !in_array($data['type'], ['depot', 'retrait', 'création projet'])) {
             http_response_code(400);
             echo json_encode(["error" => "Type invalide"]);
             return;
         }
-    
+        
+        // Obtention du projet_id s'il n'est pas mis dans le body
+        if (!isset($data['projet_id'])) {
+            try {
+                $stmt = $pdo->prepare("SELECT id FROM Projet WHERE client_id=:client_id ORDER BY id DESC LIMIT 1");
+                $stmt->execute([':client_id'=> $data['client_id']]);
+                $projet = $stmt->fetch();
+            } catch(PDOException $e) {
+                http_response_code(500);
+                echo json_encode(array("error"=> $e->getMessage()));
+            }
+        }
+        
+        $montant = 0;
+        if (!isset($data['montant'])) {
+            $montant = $type == 'depot' ? $data['montantDepot'] : $data['montantRetrait'];
+        } else {
+            $montant = $data['montant'];
+        }
         try {
-            $stmt = $pdo->prepare("INSERT INTO Historique (projet_id, client_id, date_histo, type, montant, recurrence) VALUES (:projet_id, :client_id, :date_histo, :type, :montant, :recurrence)");
+            $stmt = $pdo->prepare("INSERT INTO Historique (projet_id, client_id, type, montant, recurrence) VALUES (:projet_id, :client_id, :type, :montant, :recurrence)");
             $stmt->execute([
-                ':projet_id' => $data['projet_id'],
-                ':client_id' => $data['client_id'],
-                ':date_histo' => $data['date_histo'],
-                ':type' => $data['type'],
-                ':montant' => $data['montant'],
+                ':projet_id' => isset($data['projet_id']) ? $data['projet_id'] : $projet["id"],
+                ':client_id' => $userid,
+                ':type' => isset($data['type']) ? $data['type'] : $type,
+                ':montant' => $montant,
                 ':recurrence' => $recurrence
             ]);
     

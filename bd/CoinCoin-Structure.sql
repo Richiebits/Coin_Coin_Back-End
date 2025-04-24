@@ -80,7 +80,7 @@ CREATE TABLE Historique (
     id         INT(10)   NOT NULL AUTO_INCREMENT,
     projet_id  INT(10)   NOT NULL,
     client_id  INT(10)   NOT NULL,
-    date_histo DATE          NOT NULL,
+    date_histo DATE      DEFAULT CURDATE(),
     type        ENUM('depot', 'retrait') NOT NULL,
     montant    INT(10)   NOT NULL,
     recurrence INT(10)   NOT NULL,

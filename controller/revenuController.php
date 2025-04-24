@@ -68,7 +68,7 @@
                     ':budget_id' => isset($data['id']) ? $data['id'] : $budget['id']
                 ]);
         
-                historiqueController::addHistorique($data['depot_recurrence']);
+                historiqueController::addHistorique($data['depot_recurrence'], 'depot');
         
             } catch (PDOException $e) {
                 http_response_code(500);
