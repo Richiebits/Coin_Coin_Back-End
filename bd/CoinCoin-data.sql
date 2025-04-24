@@ -6,14 +6,14 @@ INSERT INTO `Client` (`email`, `nom`, `prenom`, `mot_de_passe`, `is_admin`) VALU
 ('admin@coincoin.ca', '1', 'Admin', password('admin123!'), true);
 
 INSERT INTO `Projet` (`nom`, `but_epargne`, `client_id`) VALUES
-('Télévision', 1600, 1),
+('Télévision', 700, 1),
 ('Motoneige', 2000, 1),
 ('Ordinateur portable', 1000, 2),
 ('Saxophone', 2000, 2),
 ('Trotinette électrique', 500, 3);
 
 INSERT INTO `Budget` (`retraits_total`, `depots_total`, `date_debut`, `date_fin`, `projet_id`) VALUES
-(70, 100, '2025-04-10', '2025-05-02', 1),
+(70, 100, '2025-04-10', '2025-05-31', 1),
 (40, 200, '2025-03-10', '2025-04-08', 2),
 (50, 125, '2025-03-12', '2025-04-21', 3),
 (40, 250, '2025-03-30', '2025-06-21', 4),
@@ -35,7 +35,7 @@ INSERT INTO `Depot` (`nom`, `montant`, `depot_recurrence` , `budget_id`) VALUES
 ("Gouvernement", 150, 14, 5);
 
 INSERT INTO `Historique` (`projet_id`, `client_id`, `date_histo`, `type`, `montant`, `recurrence`) VALUES
-(1, 1, '2025-04-15', 'depot', 400, 0),
+(1, 1, '2025-03-15', 'depot', 400, 0),
 (2, 1, '2025-04-10', 'retrait', 2000, 0),
 (3, 2, '2025-03-25', 'depot', 150, 7),
 (4, 2, '2025-04-13', 'depot', 1000, 0),
