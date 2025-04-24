@@ -88,8 +88,8 @@ class projetController {
                 ':client_id' => $userid
             ]);
             budgetController::addBudget();
-            http_response_code(201);
-            echo json_encode(["success" => true]);
+            //http_response_code(201);
+            //echo json_encode(["success" => true]);
         } catch(PDOException $e) {
             http_response_code(500);
             echo json_encode(array("error"=> $e->getMessage()));
